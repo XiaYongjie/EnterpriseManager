@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xyj.ems.user.dao.UserInfoMapper">
+    <resultMap id="UserMap" type="com.xyj.ems.user.bean.UserInfo">
+        <id column="id" property="id"/>
+        <id column="user_name" property="userName"/>
+        <id column="nick_name" property="nickName"/>
+        <id column="real_name" property="realName"/>
+        <id column="phone" property="phone"/>
+        <id column="head_url" property="headUrl"/>
+        <id column="sex" property="sex"/>
+        <id column="id_card" property="idCard"/>
+        <id column="job_id" property="jobId"/>
+        <id column="password" property="password"/>
+        <id column="authority" property="authority"/>
+        <id column="token" property="token"/>
+    </resultMap>
+
+    <select id="getUserInfoByPhone" parameterType="com.xyj.ems.user.bean.UserInfo" resultMap="UserMap">
+        SELECT id,user_name,nick_name,real_name,phone,head_url,sex,id_card,job_id,password,authority,token FROM user WHERE user_name = #{userName} LIMIT 1
+    </select>
+
+    <select id="getUserInfoById" parameterType="com.xyj.ems.user.bean.UserInfo" resultMap="UserMap">
+        SELECT id,user_name,nick_name,real_name,phone,head_url,sex,id_card,job_id,password,authority,token FROM user WHERE id = #{id} LIMIT 1
+    </select>
+    <insert id="insertUser" parameterType="com.xyj.ems.user.bean.UserInfo" >
+        INSERT INTO user (id,user_name,nick_name,real_name,phone,head_url,sex,
+                          id_card,job_id,password,authority,token)
+        VALUES (#{id},#{userName},#{nickName},#{realName},#{phone},#{headUrl},#{sex},
+            #{idCard},#{jobId},#{password},#{authority},#{token})
+    </insert>
+</mapper>
