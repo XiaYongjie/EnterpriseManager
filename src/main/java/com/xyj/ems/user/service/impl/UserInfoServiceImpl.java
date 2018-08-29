@@ -20,19 +20,24 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public int register(String userName, String password) {
-        UserInfo info =new UserInfo();
+        UserInfo info = new UserInfo();
         info.setUserName(userName);
         info.setPassword(MD5Utils.MD5Encode(password));
         info.setToken(TokenUUIDUtil.getUUID());
         info.setAuthority(1);
         info.setJobId(4);
-        return  mapper.insertUser(info);
+        return mapper.insertUser(info);
     }
 
     @Override
     public UserInfo getUserInfoByUserName(String userName) {
-        UserInfo info =new UserInfo();
+        UserInfo info = new UserInfo();
         info.setUserName(userName);
         return mapper.getUserInfoByPhone(info);
+    }
+
+    @Override
+    public int updateUserInfoById(UserInfo info) {
+        return mapper.insertUser(info);
     }
 }

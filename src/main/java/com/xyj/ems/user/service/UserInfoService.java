@@ -6,4 +6,5 @@ public interface UserInfoService {
 
     int register(String userName,String password);
     UserInfo getUserInfoByUserName(String userName);
+    int updateUserInfoById(UserInfo info);
 }

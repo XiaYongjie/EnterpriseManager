@@ -15,18 +15,84 @@
         <id column="authority" property="authority"/>
         <id column="token" property="token"/>
     </resultMap>
+    <update id="updateUserInfoById" parameterType="com.xyj.ems.user.bean.UserInfo">
+        UPDATE user
+        <set>
+            <if test="nickName! = null">
+                nick_name= #{nickName}
+            </if>
+            <if test="nickName! = null">
+                real_name= #{realName}
+            </if>
+            <if test="nickName! = null">
+                phone= #{phone}
+            </if>
+            <if test="nickName! = null">
+                head_url= #{headUrl}
+            </if>
+            <if test="nickName! = null">
+                sex= #{sex}
+            </if>
+            <if test="nickName! = null">
+                id_card= #{idCard}
+            </if>
+            <if test="nickName! = null">
+                job_id= #{jobId}
+            </if>
+            <if test="nickName! = null">
+                password= #{password}
+            </if>
+            <if test="nickName! = null">
+                authority= #{authority}
+            </if>
+            <if test="nickName! = null">
+                token= #{token}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
 
     <select id="getUserInfoByPhone" parameterType="com.xyj.ems.user.bean.UserInfo" resultMap="UserMap">
-        SELECT id,user_name,nick_name,real_name,phone,head_url,sex,id_card,job_id,password,authority,token FROM user WHERE user_name = #{userName} LIMIT 1
+        SELECT
+            id,
+            user_name,
+            nick_name,
+            real_name,
+            phone,
+            head_url,
+            sex,
+            id_card,
+            job_id,
+            password,
+            authority,
+            token
+        FROM user
+        WHERE user_name = #{userName}
+        LIMIT 1
     </select>
 
     <select id="getUserInfoById" parameterType="com.xyj.ems.user.bean.UserInfo" resultMap="UserMap">
-        SELECT id,user_name,nick_name,real_name,phone,head_url,sex,id_card,job_id,password,authority,token FROM user WHERE id = #{id} LIMIT 1
+        SELECT
+            id,
+            user_name,
+            nick_name,
+            real_name,
+            phone,
+            head_url,
+            sex,
+            id_card,
+            job_id,
+            password,
+            authority,
+            token
+        FROM user
+        WHERE id = #{id}
+        LIMIT 1
     </select>
-    <insert id="insertUser" parameterType="com.xyj.ems.user.bean.UserInfo" >
-        INSERT INTO user (id,user_name,nick_name,real_name,phone,head_url,sex,
-                          id_card,job_id,password,authority,token)
-        VALUES (#{id},#{userName},#{nickName},#{realName},#{phone},#{headUrl},#{sex},
-            #{idCard},#{jobId},#{password},#{authority},#{token})
+    <insert id="insertUser" parameterType="com.xyj.ems.user.bean.UserInfo">
+        INSERT INTO user (id, user_name, nick_name, real_name, phone, head_url, sex,
+                          id_card, job_id, password, authority, token)
+        VALUES (#{id}, #{userName}, #{nickName}, #{realName}, #{phone}, #{headUrl}, #{sex},
+                       #{idCard}, #{jobId}, #{password}, #{authority}, #{token})
     </insert>
 </mapper>

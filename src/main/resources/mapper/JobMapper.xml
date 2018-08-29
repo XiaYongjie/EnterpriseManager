@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xyj.ems.job.dao.JobMapper">
+    <resultMap id="jobMap" type="com.xyj.ems.job.bean.Job">
+        <id column="id" property="id"/>
+        <id column="name" property="name"/>
+    </resultMap>
+    <insert id="insertJob" parameterType="com.xyj.ems.job.bean.Job">
+        INSERT INTO job_position (name)
+            VALUE (#{name})
+    </insert>
+    <select id="selectAllJob" resultMap="jobMap">
+        select
+            id,
+            name
+        from job_position
+    </select>
+</mapper>
