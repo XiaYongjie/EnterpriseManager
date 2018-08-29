@@ -5,15 +5,14 @@ import com.xyj.ems.user.service.UserInfoService;
 import com.xyj.ems.utils.MD5Utils;
 import com.xyj.ems.utils.ResultUtils;
 import com.xyj.ems.utils.StringUtil;
+import com.xyj.ems.utils.TokenUUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 @RestController
+@CrossOrigin
 public class UserInfoController {
     private final UserInfoService service;
 
@@ -36,6 +35,7 @@ public class UserInfoController {
                 return ResultUtils.getErrorResult("用户不存在");
             }
             if (MD5Utils.MD5Encode(password).equals(info.getPassword())) {
+                service.updateUserInfoTokenById(info.getId(), TokenUUIDUtil.getUUID());
                 return ResultUtils.getSuccessResult(info);
             }
             return ResultUtils.getErrorResult("密码错误");

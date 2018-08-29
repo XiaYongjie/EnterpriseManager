@@ -95,4 +95,14 @@
         VALUES (#{id}, #{userName}, #{nickName}, #{realName}, #{phone}, #{headUrl}, #{sex},
                        #{idCard}, #{jobId}, #{password}, #{authority}, #{token})
     </insert>
+    <update id="updateUserInfoJobById">
+        UPDATE user
+        SET job_id = #{jobId}
+        WHERE id = #{id}
+    </update>
+    <update id="updateUserInfoTokenById">
+        UPDATE user
+        SET token = #{token}
+        WHERE id = #{id}
+    </update>
 </mapper>

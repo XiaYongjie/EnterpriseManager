@@ -40,4 +40,20 @@ public class UserInfoServiceImpl implements UserInfoService {
     public int updateUserInfoById(UserInfo info) {
         return mapper.insertUser(info);
     }
+
+    @Override
+    public int updateUserInfoJobById(long userId, long jobId) {
+        UserInfo info = new UserInfo();
+        info.setId(userId);
+        info.setJobId(jobId);
+        return mapper.updateUserInfoJobById(info);
+    }
+
+    @Override
+    public int updateUserInfoTokenById(long userId, String token) {
+        UserInfo info = new UserInfo();
+        info.setId(userId);
+        info.setToken(token);
+        return mapper.updateUserInfoTokenById(info);
+    }
 }
