@@ -56,4 +56,11 @@ public class UserInfoServiceImpl implements UserInfoService {
         info.setToken(token);
         return mapper.updateUserInfoTokenById(info);
     }
+
+    @Override
+    public int deleteUserById(long id) {
+        UserInfo info =new UserInfo();
+        info.setId(id);
+        return mapper.deteleUserById(info);
+    }
 }

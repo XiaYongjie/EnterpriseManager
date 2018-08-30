@@ -14,4 +14,6 @@ public interface UserInfoMapper {
     int updateUserInfoJobById(UserInfo info);
 
     int updateUserInfoTokenById(UserInfo info);
+
+    int deteleUserById(UserInfo info);
 }
