@@ -131,4 +131,18 @@ public class UserInfoController {
         }
     }
 
+    @RequestMapping(value = "/delete/userInfo", method = RequestMethod.POST)
+    public String deleteUser(@RequestParam("id") String id) {
+        try {
+            if (StringUtil.isEmpty(id)) {
+                return ResultUtils.getErrorResult("请选择要删除的用户");
+            }
+            service.deleteUserById(Long.parseLong(id));
+            return ResultUtils.getSuccessResult("删除成功");
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return ResultUtils.getErrorResult("删除失败");
+        }
+
+    }
 }

@@ -51,6 +51,11 @@
         </set>
         where id = #{id}
     </update>
+    <update id="deteleUserById">
+        update user
+        set is_delete = 1
+        where id = #{id}
+    </update>
 
     <select id="getUserInfoByPhone" parameterType="com.xyj.ems.user.bean.UserInfo" resultMap="UserMap">
         SELECT

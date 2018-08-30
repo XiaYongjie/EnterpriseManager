@@ -13,4 +13,6 @@ public interface UserInfoService {
     int updateUserInfoJobById(long userId, long jobId);
 
     int updateUserInfoTokenById(long userId, String token);
+
+    int deleteUserById(long id);
 }

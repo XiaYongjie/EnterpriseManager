@@ -3,7 +3,6 @@ package com.xyj.ems.job.controller;
 import com.xyj.ems.job.service.JobService;
 import com.xyj.ems.utils.ResultUtils;
 import com.xyj.ems.utils.StringUtil;
-import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
