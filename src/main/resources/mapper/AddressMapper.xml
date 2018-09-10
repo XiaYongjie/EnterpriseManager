@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xyj.ems.common.dao.AddressMapper">
+    <resultMap id="province" type="com.xyj.ems.common.bean.ProvinceBean">
+        <id column="id" property="id"/>
+        <id column="provinceid" property="provinceId"/>
+        <id column="province" property="province"/>
+    </resultMap>
+    <resultMap id="city" type="com.xyj.ems.common.bean.CityBean">
+        <id column="id" property="id"/>
+        <id column="provinceid" property="provinceId"/>
+        <id column="cityid" property="cityId"/>
+        <id column="city" property="city"/>
+    </resultMap>
+
+    <resultMap id="area" type="com.xyj.ems.common.bean.AreaBean">
+        <id column="id" property="id"/>
+        <id column="cityid" property="cityId"/>
+        <id column="areaid" property="areaId"/>
+        <id column="area" property="area"/>
+    </resultMap>
+    <select id="getAllProvince" resultMap="province">
+      SELECT id,provinceid,province FROM provinces
+    </select>
+
+    <select id="getAllCityByProvince" resultMap="city">
+        SELECT id,provinceid,cityid,city FROM cities where provinceid = (SELECT provinceid FROM provinces where id = #{id})
+    </select>
+
+    <select id="getAllAreaByCity" resultMap="area">
+        SELECT id,cityid,areaid,area FROM areas where cityid = (SELECT cityid FROM cities where id = #{id})
+    </select>
+</mapper>
