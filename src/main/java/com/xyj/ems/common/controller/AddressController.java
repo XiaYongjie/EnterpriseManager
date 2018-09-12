@@ -6,6 +6,8 @@ import com.xyj.ems.common.bean.ProvinceBean;
 import com.xyj.ems.common.service.AddressService;
 import com.xyj.ems.utils.ResultUtils;
 import com.xyj.ems.utils.StringUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class AddressController {
+    private Logger logger = LoggerFactory.getLogger(AddressController.class);
     private final AddressService service;
 
     @Autowired
@@ -25,8 +29,10 @@ public class AddressController {
 
 
     @RequestMapping(value = "/addressList", method = RequestMethod.POST)
-    public String getAddressList(@RequestParam("type") String type, @RequestParam("id") String id) {
+    public String getAddressList(@RequestParam Map<String,String> params) {
         try {
+            String type = params.get("type");
+            String id = params.get("id");
             if (StringUtil.isEmpty(type) || StringUtil.isEmpty(id)) {
                 return ResultUtils.getErrorResult("参数异常");
             }
@@ -45,6 +51,7 @@ public class AddressController {
             }
         } catch (NumberFormatException e) {
             e.printStackTrace();
+            logger.error("error",e);
             return ResultUtils.getErrorResult("参数异常");
         }
     }

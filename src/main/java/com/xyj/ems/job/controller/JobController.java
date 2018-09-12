@@ -3,13 +3,17 @@ package com.xyj.ems.job.controller;
 import com.xyj.ems.job.service.JobService;
 import com.xyj.ems.utils.ResultUtils;
 import com.xyj.ems.utils.StringUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @CrossOrigin
 public class JobController {
-
+    private Logger logger = LoggerFactory.getLogger(JobController.class);
     private final JobService service;
 
     @Autowired
@@ -18,8 +22,9 @@ public class JobController {
     }
 
     @RequestMapping(value = "/add/job", method = RequestMethod.POST)
-    public String addJob(@RequestParam("name") String name) {
+    public String addJob(@RequestParam Map<String,String> params) {
         try {
+            String name = params.get("name");
             if (StringUtil.isEmpty(name)) {
                 return ResultUtils.getErrorResult("职位名称不能为空");
             }
@@ -31,6 +36,7 @@ public class JobController {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            logger.error("error",e);
             return ResultUtils.getErrorResult("职位添加失败");
         }
     }

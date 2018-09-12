@@ -1,11 +1,14 @@
 package com.xyj.ems.user.controller;
 
+import com.xyj.ems.job.controller.JobController;
 import com.xyj.ems.user.bean.UserInfo;
 import com.xyj.ems.user.service.UserInfoService;
 import com.xyj.ems.utils.MD5Utils;
 import com.xyj.ems.utils.ResultUtils;
 import com.xyj.ems.utils.StringUtil;
 import com.xyj.ems.utils.TokenUUIDUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +17,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 public class UserInfoController {
+    private Logger logger = LoggerFactory.getLogger(JobController.class);
     private final UserInfoService service;
 
 
@@ -24,8 +28,10 @@ public class UserInfoController {
 
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@RequestParam("userName") String userName, @RequestParam("password") String password) {
+    public String login(@RequestParam Map<String,String> map) {
         try {
+            String userName = map.get("userName");
+            String password = map.get("password");
             if (StringUtil.isEmpty(userName) || StringUtil.isEmpty(password)) {
                 return ResultUtils.getErrorResult("用户名或密码不能为空");
             }
@@ -40,6 +46,7 @@ public class UserInfoController {
             }
             return ResultUtils.getErrorResult("密码错误");
         } catch (Exception e) {
+            logger.error("error",e);
             e.printStackTrace();
             return ResultUtils.getErrorResult("登陆异常");
         }
@@ -65,6 +72,7 @@ public class UserInfoController {
                 return ResultUtils.getSuccessResult("注册成功");
             }
         } catch (Exception e) {
+            logger.error("error",e);
             e.printStackTrace();
             return ResultUtils.getErrorResult("注册失败");
         }
@@ -126,14 +134,16 @@ public class UserInfoController {
                 return ResultUtils.getSuccessResult("修改成功");
             }
         } catch (Exception e) {
+            logger.error("error",e);
             e.printStackTrace();
             return ResultUtils.getErrorResult("修改失败");
         }
     }
 
     @RequestMapping(value = "/delete/userInfo", method = RequestMethod.POST)
-    public String deleteUser(@RequestParam("id") String id) {
+    public String deleteUser(@RequestParam Map<String,String> map) {
         try {
+            String id = map.get("id");
             if (StringUtil.isEmpty(id)) {
                 return ResultUtils.getErrorResult("请选择要删除的用户");
             }
@@ -141,6 +151,7 @@ public class UserInfoController {
             return ResultUtils.getSuccessResult("删除成功");
         } catch (NumberFormatException e) {
             e.printStackTrace();
+            logger.error("error",e);
             return ResultUtils.getErrorResult("删除失败");
         }
 
