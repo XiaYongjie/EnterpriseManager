@@ -29,7 +29,7 @@ public class AddressController {
 
 
     @RequestMapping(value = "/addressList", method = RequestMethod.POST)
-    public String getAddressList(@RequestParam Map<String,String> params) {
+    public String getAddressList(@RequestParam Map<String, String> params) {
         try {
             String type = params.get("type");
             String id = params.get("id");
@@ -41,8 +41,8 @@ public class AddressController {
                     List<ProvinceBean> beans = service.getAllProvince();
                     return ResultUtils.getSuccessResult(beans);
                 case "2":
-                    List<CityBean> citys = service.getAllCityByProvince(Integer.parseInt(id));
-                    return ResultUtils.getSuccessResult(citys);
+                    List<CityBean> cites = service.getAllCityByProvince(Integer.parseInt(id));
+                    return ResultUtils.getSuccessResult(cites);
                 case "3":
                     List<AreaBean> areas = service.getAllAreaByCity(Integer.parseInt(id));
                     return ResultUtils.getSuccessResult(areas);
@@ -51,7 +51,7 @@ public class AddressController {
             }
         } catch (NumberFormatException e) {
             e.printStackTrace();
-            logger.error("error",e);
+            logger.error("error", e);
             return ResultUtils.getErrorResult("参数异常");
         }
     }
